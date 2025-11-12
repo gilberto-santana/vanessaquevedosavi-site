@@ -57,7 +57,7 @@ export const Navbar = () => {
 
           <div className="hidden md:block">
             <Button
-              onClick={() => navigate("/auth")}
+              onClick={() => navigate("/dashboard")}
               className="rounded-full px-6"
             >
               Área do Aluno
@@ -103,7 +103,7 @@ export const Navbar = () => {
               </button>
               <Button
                 onClick={() => {
-                  navigate("/auth");
+                  navigate("/dashboard");
                   setIsOpen(false);
                 }}
                 className="rounded-full w-full"
