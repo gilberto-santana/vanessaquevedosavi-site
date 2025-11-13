@@ -13,7 +13,7 @@ interface Tarefa {
   criada_em?: string
 }
 
-export function SupabaseCrudExample() {
+export function SupabaseCrudSimples() {
   const { supabase, user } = useSupabase()
   const [tarefas, setTarefas] = useState<Tarefa[]>([])
   const [novaTarefa, setNovaTarefa] = useState({ titulo: '', descricao: '' })
