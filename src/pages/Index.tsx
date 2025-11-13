@@ -7,12 +7,18 @@ import { About } from "@/components/About";
 import { Testimonials } from "@/components/Testimonials";
 import { FAQ } from "@/components/FAQ";
 import { Footer } from "@/components/Footer";
+import { SupabaseTest } from "@/components/supabase-test";
+import { SupabaseAuthExample } from "@/components/supabase-auth-example";
+import { SupabaseCrudSimples } from "@/components/supabase-crud-simples";
 
 const Index = () => {
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
       <Hero />
+      <SupabaseTest />
+      <SupabaseAuthExample />
+      <SupabaseCrudSimples />
       <Symptoms />
       <Results />
       <Courses />
