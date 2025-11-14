@@ -8,6 +8,9 @@ import Auth from "./pages/Auth";
 import Dashboard from "./pages/Dashboard";
 import Instructor from "./pages/Instructor";
 import Admin from "./pages/Admin";
+import CourseBasic from "./pages/CourseBasic";
+import CourseAdvanced from "./pages/CourseAdvanced";
+import CourseHolistic from "./pages/CourseHolistic";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -24,6 +27,9 @@ const App = () => (
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/instructor" element={<Instructor />} />
           <Route path="/admin" element={<Admin />} />
+          <Route path="/curso/massoterapia-basica" element={<CourseBasic />} />
+          <Route path="/curso/massoterapia-avancada" element={<CourseAdvanced />} />
+          <Route path="/curso/terapias-holisticas" element={<CourseHolistic />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

@@ -1,8 +1,10 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Clock, Users, Award } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 export const Courses = () => {
+  const navigate = useNavigate();
   const courses = [
     {
       title: "Massoterapia Básica",
@@ -11,6 +13,7 @@ export const Courses = () => {
       students: "500+",
       certificate: "Certificado incluso",
       image: "https://images.unsplash.com/photo-1519824145371-296894a0daa9?w=600&q=80",
+      route: "/curso/massoterapia-basica",
     },
     {
       title: "Massoterapia Avançada",
@@ -19,6 +22,7 @@ export const Courses = () => {
       students: "300+",
       certificate: "Certificado profissional",
       image: "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=600&q=80",
+      route: "/curso/massoterapia-avancada",
     },
     {
       title: "Terapias Holísticas",
@@ -27,6 +31,7 @@ export const Courses = () => {
       students: "400+",
       certificate: "Certificado incluso",
       image: "https://images.unsplash.com/photo-1545205597-3d9d02c29597?w=600&q=80",
+      route: "/curso/terapias-holisticas",
     },
   ];
 
@@ -72,7 +77,10 @@ export const Courses = () => {
                 </div>
               </CardContent>
               <CardFooter>
-                <Button className="w-full rounded-full">
+                <Button 
+                  className="w-full rounded-full"
+                  onClick={() => navigate(course.route)}
+                >
                   Saiba mais
                 </Button>
               </CardFooter>
