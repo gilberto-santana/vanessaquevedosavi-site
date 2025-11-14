@@ -41,8 +41,8 @@ export const Hero = () => {
               </Button>
               <Button
                 size="lg"
-                variant="outline"
-                className="rounded-full text-lg font-semibold border-2 border-white text-white hover:bg-white hover:text-primary"
+
+                className="rounded-full text-lg font-semibold bg-teal-500 hover:bg-teal-600 text-white"
                 onClick={() => scrollToSection("cursos")}
               >
                 Conhecer os cursos

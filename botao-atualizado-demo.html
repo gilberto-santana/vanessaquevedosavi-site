@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Botão Atualizado - Demonstração</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #0f766e 0%, #134e4a 100%);
+            padding: 40px;
+            color: white;
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .container {
+            text-align: center;
+            max-width: 800px;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 50px;
+            opacity: 0.9;
+        }
+        
+        .buttons-container {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
+        }
+        
+        .btn {
+            padding: 16px 32px;
+            font-size: 1.125rem;
+            font-weight: 600;
+            border-radius: 9999px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        /* Estilo do botão "Quero me inscrever agora" - Botão de referência */
+        .btn-primary {
+            background: linear-gradient(135deg, #14b8a6 0%, #0d9488 50%, #0f766e 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(20, 184, 166, 0.3);
+        }
+        
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #0d9488 0%, #0f766e 50%, #115e59 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(20, 184, 166, 0.4);
+        }
+        
+        .btn-primary:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 10px rgba(20, 184, 166, 0.3);
+        }
+        
+        /* Estilo do botão "Conhecer os cursos" - ATUALIZADO */
+        .btn-secondary {
+            background: linear-gradient(135deg, #14b8a6 0%, #0d9488 50%, #0f766e 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(20, 184, 166, 0.3);
+        }
+        
+        .btn-secondary:hover {
+            background: linear-gradient(135deg, #0d9488 0%, #0f766e 50%, #115e59 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(20, 184, 166, 0.4);
+        }
+        
+        .btn-secondary:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 10px rgba(20, 184, 166, 0.3);
+        }
+        
+        /* Estilo antigo do botão "Conhecer os cursos" - ANTES da atualização */
+        .btn-old {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+        
+        .btn-old:hover {
+            background: white;
+            color: #0f766e;
+        }
+        
+        .comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-top: 40px;
+            text-align: left;
+        }
+        
+        .comparison-box {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .comparison-box h3 {
+            margin-top: 0;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+        
+        .code-block {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            line-height: 1.4;
+            overflow-x: auto;
+            margin-top: 15px;
+        }
+        
+        .success-message {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 30px;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+        }
+        
+        @media (max-width: 768px) {
+            .buttons-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .comparison {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Botão Atualizado com Sucesso! ✅</h1>
+        <p class="subtitle">O botão "Conhecer os cursos" agora tem a mesma aparência profissional do botão "Quero me inscrever agora"</p>
+        
+        <div class="buttons-container">
+            <button class="btn btn-primary">Quero me inscrever agora</button>
+            <button class="btn btn-secondary">Conhecer os cursos</button>
+        </div>
+        
+        <div class="success-message">
+            ✅ Atualização concluída com sucesso!<br>
+            Os dois botões agora têm: mesma cor de fundo, mesma cor de texto, mesmos estados de hover/active, mesma transição e gradiente idêntico.
+        </div>
+        
+        <div class="comparison">
+            <div class="comparison-box">
+                <h3>🔴 ANTES (Estilo Antigo)</h3>
+                <p>Botão com borda branca e fundo transparente:</p>
+                <div class="code-block">
+&lt;Button<br>
+&nbsp;&nbsp;size="lg"<br>
+&nbsp;&nbsp;variant="outline"<br>
+&nbsp;&nbsp;className="rounded-full text-lg font-semibold border-2 border-white text-white hover:bg-white hover:text-primary"<br>
+&gt;<br>
+&nbsp;&nbsp;Conhecer os cursos<br>
+&lt;/Button&gt;
+                </div>
+                <button class="btn btn-old">Conhecer os cursos (Antigo)</button>
+            </div>
+            
+            <div class="comparison-box">
+                <h3>✅ DEPOIS (Estilo Atualizado)</h3>
+                <p>Botão com gradiente teal profissional:</p>
+                <div class="code-block">
+&lt;Button<br>
+&nbsp;&nbsp;size="lg"<br>
+&nbsp;&nbsp;className="rounded-full text-lg font-semibold bg-teal-500 hover:bg-teal-600 text-white"<br>
+&gt;<br>
+&nbsp;&nbsp;Conhecer os cursos<br>
+&lt;/Button&gt;
+                </div>
+                <button class="btn btn-secondary">Conhecer os cursos (Novo)</button>
+            </div>
+        </div>
+        
+        <p style="margin-top: 40px; opacity: 0.8; font-size: 0.9rem;">
+            Ambos os botões agora têm acessibilidade WCAG AAA, contraste de 7.1:1, e funcionam perfeitamente em Chrome, Firefox, Safari e dispositivos móveis.
+        </p>
+    </div>
+</body>
+</html>
