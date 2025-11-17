@@ -22,7 +22,9 @@ interface Curso {
 
 export const Courses = () => {
   const navigate = useNavigate();
-  const courses = [
+  const [cursos, setCursos] = useState<Curso[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
     {
       title: "Massoterapia Básica",
       description: "Fundamentos essenciais da massoterapia e técnicas básicas",
