@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -6,33 +6,74 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { toast } from "sonner";
+import { supabase } from "@/integrations/supabase/client";
 
 export const Auth = () => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
 
+  useEffect(() => {
+    // Check if user is already logged in
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      if (session) {
+        navigate("/");
+      }
+    });
+  }, [navigate]);
+
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);
 
-    // Simulação de login
-    setTimeout(() => {
-      setIsLoading(false);
-      toast.success("Login realizado com sucesso!");
-      navigate("/");
-    }, 1500);
+    const formData = new FormData(e.currentTarget);
+    const email = formData.get("email") as string;
+    const password = formData.get("password") as string;
+
+    const { error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
+
+    setIsLoading(false);
+
+    if (error) {
+      toast.error(error.message);
+      return;
+    }
+
+    toast.success("Login realizado com sucesso!");
+    navigate("/");
   };
 
   const handleSignup = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);
 
-    // Simulação de cadastro
-    setTimeout(() => {
-      setIsLoading(false);
-      toast.success("Cadastro realizado com sucesso!");
-      navigate("/");
-    }, 1500);
+    const formData = new FormData(e.currentTarget);
+    const email = formData.get("email") as string;
+    const password = formData.get("password") as string;
+    const fullName = formData.get("name") as string;
+
+    const { error } = await supabase.auth.signUp({
+      email,
+      password,
+      options: {
+        emailRedirectTo: `${window.location.origin}/`,
+        data: {
+          full_name: fullName,
+        },
+      },
+    });
+
+    setIsLoading(false);
+
+    if (error) {
+      toast.error(error.message);
+      return;
+    }
+
+    toast.success("Cadastro realizado! Verifique seu email para confirmar.");
+    navigate("/");
   };
 
   return (
@@ -67,6 +108,7 @@ export const Auth = () => {
                     <Label htmlFor="login-email">E-mail</Label>
                     <Input
                       id="login-email"
+                      name="email"
                       type="email"
                       placeholder="seu@email.com"
                       required
@@ -76,6 +118,7 @@ export const Auth = () => {
                     <Label htmlFor="login-password">Senha</Label>
                     <Input
                       id="login-password"
+                      name="password"
                       type="password"
                       placeholder="••••••••"
                       required
@@ -105,6 +148,7 @@ export const Auth = () => {
                     <Label htmlFor="signup-name">Nome completo</Label>
                     <Input
                       id="signup-name"
+                      name="name"
                       type="text"
                       placeholder="Seu nome"
                       required
@@ -114,6 +158,7 @@ export const Auth = () => {
                     <Label htmlFor="signup-email">E-mail</Label>
                     <Input
                       id="signup-email"
+                      name="email"
                       type="email"
                       placeholder="seu@email.com"
                       required
@@ -123,18 +168,22 @@ export const Auth = () => {
                     <Label htmlFor="signup-password">Senha</Label>
                     <Input
                       id="signup-password"
+                      name="password"
                       type="password"
                       placeholder="••••••••"
                       required
+                      minLength={6}
                     />
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="signup-confirm">Confirmar senha</Label>
                     <Input
                       id="signup-confirm"
+                      name="confirm"
                       type="password"
                       placeholder="••••••••"
                       required
+                      minLength={6}
                     />
                   </div>
                   <Button

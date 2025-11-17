@@ -279,6 +279,51 @@ export type Database = {
           },
         ]
       }
+      cursos: {
+        Row: {
+          certificado: string | null
+          created_at: string
+          descricao: string | null
+          duracao: string | null
+          id: string
+          imagem_url: string | null
+          nivel: string | null
+          numero_alunos: string | null
+          preco: number | null
+          preco_parcelado: string | null
+          titulo: string
+          updated_at: string
+        }
+        Insert: {
+          certificado?: string | null
+          created_at?: string
+          descricao?: string | null
+          duracao?: string | null
+          id?: string
+          imagem_url?: string | null
+          nivel?: string | null
+          numero_alunos?: string | null
+          preco?: number | null
+          preco_parcelado?: string | null
+          titulo: string
+          updated_at?: string
+        }
+        Update: {
+          certificado?: string | null
+          created_at?: string
+          descricao?: string | null
+          duracao?: string | null
+          id?: string
+          imagem_url?: string | null
+          nivel?: string | null
+          numero_alunos?: string | null
+          preco?: number | null
+          preco_parcelado?: string | null
+          titulo?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       forum_comments: {
         Row: {
           content: string
@@ -683,22 +728,40 @@ export type Database = {
       }
       usuarios: {
         Row: {
+          cpf: string | null
           created_at: string
           email: string
           id: number
           nome: string | null
+          status: string | null
+          telefone: string | null
+          tipo_usuario: string | null
+          ultimo_acesso: string | null
+          updated_at: string
         }
         Insert: {
+          cpf?: string | null
           created_at?: string
           email: string
           id?: number
           nome?: string | null
+          status?: string | null
+          telefone?: string | null
+          tipo_usuario?: string | null
+          ultimo_acesso?: string | null
+          updated_at?: string
         }
         Update: {
+          cpf?: string | null
           created_at?: string
           email?: string
           id?: number
           nome?: string | null
+          status?: string | null
+          telefone?: string | null
+          tipo_usuario?: string | null
+          ultimo_acesso?: string | null
+          updated_at?: string
         }
         Relationships: []
       }
