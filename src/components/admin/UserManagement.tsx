@@ -10,6 +10,32 @@ import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, D
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../ui/card';
 import { Badge } from '../ui/badge';
 import { Pencil, Trash2, Plus, Search, User } from 'lucide-react';
+import { z } from 'zod';
+
+// Validation schema for user data
+const usuarioSchema = z.object({
+  nome: z.string()
+    .trim()
+    .min(2, 'Nome deve ter pelo menos 2 caracteres')
+    .max(100, 'Nome muito longo')
+    .regex(/^[a-zA-ZÀ-ÿ\s'-]+$/, 'Nome contém caracteres inválidos'),
+  email: z.string()
+    .trim()
+    .email('Email inválido')
+    .max(255, 'Email muito longo'),
+  cpf: z.string()
+    .trim()
+    .regex(/^\d{3}\.\d{3}\.\d{3}-\d{2}$/, 'CPF deve estar no formato 000.000.000-00')
+    .optional()
+    .or(z.literal('')),
+  telefone: z.string()
+    .trim()
+    .regex(/^\(\d{2}\)\s?\d{4,5}-?\d{4}$/, 'Telefone deve estar no formato (00) 00000-0000')
+    .optional()
+    .or(z.literal('')),
+  tipo_usuario: z.enum(['aluno', 'admin', 'instrutor']),
+  status: z.enum(['ativo', 'inativo'])
+});
 
 interface Usuario {
   id?: string;
@@ -68,12 +94,16 @@ export function UserManagement() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Validate form data
     try {
+      const validData = usuarioSchema.parse(formData);
+      
       if (editingUsuario) {
         const { error } = await supabase
           .from('usuarios')
           .update({
-            ...formData,
+            ...validData,
             updated_at: new Date().toISOString()
           })
           .eq('id', editingUsuario.id);
@@ -88,7 +118,7 @@ export function UserManagement() {
         const { error } = await supabase
           .from('usuarios')
           .insert([{
-            ...formData,
+            ...validData,
             created_at: new Date().toISOString(),
             updated_at: new Date().toISOString()
           }]);
@@ -105,12 +135,21 @@ export function UserManagement() {
       resetForm();
       fetchUsuarios();
     } catch (error) {
-      console.error('Erro ao salvar usuário:', error);
-      toast({
-        title: 'Erro',
-        description: 'Não foi possível salvar o usuário.',
-        variant: 'destructive'
-      });
+      if (error instanceof z.ZodError) {
+        const firstError = error.errors[0];
+        toast({
+          title: 'Dados inválidos',
+          description: firstError.message,
+          variant: 'destructive'
+        });
+      } else {
+        console.error('Erro ao salvar usuário:', error);
+        toast({
+          title: 'Erro',
+          description: 'Não foi possível salvar o usuário.',
+          variant: 'destructive'
+        });
+      }
     }
   };
 
