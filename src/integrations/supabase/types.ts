@@ -597,6 +597,7 @@ export type Database = {
           descricao: string | null
           id: number
           titulo: string
+          user_id: string | null
         }
         Insert: {
           concluida?: boolean | null
@@ -604,6 +605,7 @@ export type Database = {
           descricao?: string | null
           id?: number
           titulo: string
+          user_id?: string | null
         }
         Update: {
           concluida?: boolean | null
@@ -611,6 +613,7 @@ export type Database = {
           descricao?: string | null
           id?: number
           titulo?: string
+          user_id?: string | null
         }
         Relationships: []
       }
