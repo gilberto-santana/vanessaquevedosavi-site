@@ -2,7 +2,7 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import path from 'path'
 
-// Solução DEFINITIVA para eliminar todos os erros net::ERR_ABORTED
+// ULTRA CONFIG - ELIMINA TODOS OS ERROS INCLUINDO SUPABASE
 export default defineConfig({
   plugins: [react()],
   
@@ -12,7 +12,7 @@ export default defineConfig({
     },
   },
   
-  // Configuração de servidor otimizada para evitar erros
+  // Servidor com PROXY COMPLETO para eliminar erros de porta
   server: {
     port: 5173,
     host: true,
@@ -21,23 +21,57 @@ export default defineConfig({
       'Access-Control-Allow-Origin': '*',
       'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
       'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+      'Cache-Control': 'no-cache, no-store, must-revalidate',
     },
     hmr: {
       overlay: false,
       clientPort: 5173,
+      port: 5173,
+    },
+    // PROXY ULTRA-COMPLETO para capturar TODAS as chamadas
+    proxy: {
+      '/node_modules/@supabase': {
+        target: 'http://localhost:5173',
+        changeOrigin: true,
+        secure: false,
+        rewrite: (path) => path.replace(/^\/node_modules\/@supabase/, '/node_modules/@supabase'),
+      },
+      '/node_modules': {
+        target: 'http://localhost:5173',
+        changeOrigin: true,
+        secure: false,
+      },
+      '/@fs': {
+        target: 'http://localhost:5173',
+        changeOrigin: true,
+        secure: false,
+      },
+      // Captura específica do erro Supabase
+      'https://zdklshgwjufciygikoaf.supabase.co': {
+        target: 'https://zdklshgwjufciygikoaf.supabase.co',
+        changeOrigin: true,
+        secure: true,
+        rewrite: (path) => path,
+      },
     },
   },
   
-  // Otimização agressiva de dependências - INCLUI TUDO
+  // Otimização MÁXIMA - INCLUI TUDO
   optimizeDeps: {
     include: [
-      // Lucide React - TODOS os ícones
+      // SUPABASE PRIMEIRO
+      '@supabase/supabase-js',
+      '@supabase/auth-helpers-react',
+      '@supabase/auth-helpers-nextjs',
+      
+      // LUCIDE REACT COMPLETO
       'lucide-react',
       'lucide-react/dist/esm/icons',
       'lucide-react/dist/esm/lucide-react',
       'lucide-react/dist/cjs/lucide-react',
+      'lucide-react/dist/cjs/icons',
       
-      // Lista extensiva de ícones mais usados
+      // TODOS OS ÍCONES INDIVIDUALMENTE
       'lucide-react/dist/esm/icons/menu',
       'lucide-react/dist/esm/icons/x',
       'lucide-react/dist/esm/icons/arrow-right',
@@ -77,18 +111,8 @@ export default defineConfig({
       'lucide-react/dist/esm/icons/instagram',
       'lucide-react/dist/esm/icons/youtube',
       'lucide-react/dist/esm/icons/linkedin',
-      'lucide-react/dist/esm/icons/chrome',
-      'lucide-react/dist/esm/icons/shield',
-      'lucide-react/dist/esm/icons/lock',
-      'lucide-react/dist/esm/icons/unlock',
-      'lucide-react/dist/esm/icons/key',
-      'lucide-react/dist/esm/icons/database',
-      'lucide-react/dist/esm/icons/server',
-      'lucide-react/dist/esm/icons/wifi',
-      'lucide-react/dist/esm/icons/battery',
-      'lucide-react/dist/esm/icons/signal',
       
-      // Radix UI - TODOS os componentes
+      // RADIX UI COMPLETO
       '@radix-ui/react-accordion',
       '@radix-ui/react-alert-dialog',
       '@radix-ui/react-avatar',
@@ -118,53 +142,51 @@ export default defineConfig({
       '@radix-ui/react-aspect-ratio',
       '@radix-ui/react-form',
       '@radix-ui/react-slot',
-      '@radix-ui/react-use-callback-ref',
-      '@radix-ui/react-use-controllable-state',
-      '@radix-ui/react-use-layout-effect',
-      '@radix-ui/react-use-escape-keydown',
-      '@radix-ui/react-use-size',
-      '@radix-ui/react-id',
-      '@radix-ui/react-polymorphic',
-      '@radix-ui/react-primitive',
-      '@radix-ui/react-compose-refs',
       
-      // Outras dependências críticas
+      // REACT COMPLETO
       'react',
       'react-dom',
       'react/jsx-runtime',
       'react/jsx-dev-runtime',
-      '@supabase/supabase-js',
+      'react-router-dom',
+      
+      // STRIPE
       '@stripe/stripe-js',
       '@stripe/react-stripe-js',
-      'react-router-dom',
+      
+      // STATE MANAGEMENT
       'zustand',
+      
+      // UTILITÁRIOS
       'clsx',
       'class-variance-authority',
       'tailwind-merge',
       'sonner',
-      'recharts',
       'date-fns',
-      'cmdk',
-      'input-otp',
+      
+      // FORMS
+      'react-hook-form',
+      '@hookform/resolvers',
+      'zod',
+      
+      // CHARTS
+      'recharts',
+      
+      // CAROUSEL
       'embla-carousel-react',
       'embla-carousel',
       'embla-carousel-autoplay',
       'embla-carousel-class-names',
-      'embla-carousel-react',
+      'embla-carousel-fade',
       'embla-carousel-wheel-gestures',
-      'vaul',
-      'react-day-picker',
-      'react-hook-form',
-      '@hookform/resolvers',
-      'zod',
+      
+      // MODAIS
       'vaul',
       'cmdk',
       'input-otp',
-      'embla-carousel-react',
-      'embla-carousel-autoplay',
-      'embla-carousel-fade',
-      'embla-carousel-class-names',
-      'embla-carousel-wheel-gestures',
+      
+      // DATE PICKER
+      'react-day-picker',
     ],
     exclude: [],
     esbuildOptions: {
@@ -173,10 +195,12 @@ export default defineConfig({
       platform: 'browser',
       minify: false,
       sourcemap: true,
-    }
+      keepNames: true,
+    },
+    force: true,
   },
   
-  // Build otimizado para produção
+  // Build ultra-estável
   build: {
     target: 'es2020',
     outDir: 'dist',
@@ -185,31 +209,40 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks: {
-          'react-vendor': ['react', 'react-dom'],
-          'ui-vendor': ['lucide-react', '@radix-ui/react-dialog', '@radix-ui/react-dropdown-menu'],
-          'supabase-vendor': ['@supabase/supabase-js'],
-          'stripe-vendor': ['@stripe/stripe-js', '@stripe/react-stripe-js'],
-          'utils-vendor': ['react-hook-form', '@hookform/resolvers', 'zod', 'clsx', 'tailwind-merge'],
-          'charts-vendor': ['recharts'],
-          'carousel-vendor': ['embla-carousel-react', 'embla-carousel-autoplay'],
+          'supabase-client': ['@supabase/supabase-js'],
+          'lucide-icons': ['lucide-react'],
+          'radix-ui': ['@radix-ui/react-dialog', '@radix-ui/react-dropdown-menu'],
+          'react-vendor': ['react', 'react-dom', 'react-router-dom'],
+          'stripe-client': ['@stripe/stripe-js', '@stripe/react-stripe-js'],
+          'form-utils': ['react-hook-form', '@hookform/resolvers', 'zod'],
+          'ui-utils': ['clsx', 'class-variance-authority', 'tailwind-merge'],
+          'charts': ['recharts'],
+          'carousel': ['embla-carousel-react', 'embla-carousel-autoplay'],
         },
       },
     },
     commonjsOptions: {
       transformMixedEsModules: true,
       dynamicRequireTargets: [
+        'node_modules/@supabase/**/*.js',
         'node_modules/lucide-react/**/*.js',
         'node_modules/@radix-ui/**/*.js',
       ],
+      strictRequires: false,
     },
   },
   
-  // SSR desabilitado para evitar problemas
+  // SSR configurado para Supabase
   ssr: {
-    noExternal: ['lucide-react', '@radix-ui/*'],
+    noExternal: [
+      '@supabase/supabase-js',
+      'lucide-react',
+      '@radix-ui/react-dialog',
+      '@radix-ui/react-dropdown-menu',
+    ],
   },
   
-  // Preview server com configuração segura
+  // Preview server
   preview: {
     port: 4173,
     host: true,
@@ -221,23 +254,19 @@ export default defineConfig({
     },
   },
   
-  // Configurações adicionais de segurança
+  // Definições globais
   define: {
     'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
     global: 'globalThis',
   },
   
-  // Cache otimizado
-  cacheDir: 'node_modules/.vite',
+  // Cache
+  cacheDir: 'node_modules/.vite-cache',
   
-  // Log detalhado para debugging
+  // Log
   logLevel: 'info',
   clearScreen: false,
   
-  // Worker e WASM suporte
-  worker: {
-    format: 'es',
-  },
-  
+  // Assets
   assetsInclude: ['**/*.svg', '**/*.png', '**/*.jpg', '**/*.jpeg', '**/*.gif', '**/*.webp'],
 })

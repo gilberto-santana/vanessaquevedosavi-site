@@ -2,9 +2,11 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { CheckCircle, Clock, Users, Award, BookOpen, Video, FileText, Star, TrendingUp } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { useScrollToTop } from "@/hooks/useScrollToTop";
 
 const CourseAdvanced = () => {
   const navigate = useNavigate();
+  useScrollToTop();
 
   const modules = [
     {

@@ -32,7 +32,7 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
 // Função auxiliar para verificar conexão
 export const checkSupabaseConnection = async () => {
   try {
-    const { data, error } = await supabase.from('usuarios').select('id').limit(1);
+    const { data, error } = await supabase.from('users').select('id').limit(1);
     if (error) {
       console.warn('Supabase connection check failed:', error.message);
       return false;
@@ -47,7 +47,7 @@ export const checkSupabaseConnection = async () => {
 
 // Exportar tipos para TypeScript
 export type SupabaseClient = typeof supabase;
-export type Database = any;
+export type Database = any; // Você pode adicionar seus tipos aqui
 export type Tables = any;
 export type Enums = any;
 

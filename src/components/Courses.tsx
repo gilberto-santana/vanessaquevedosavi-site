@@ -2,6 +2,23 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Clock, Users, Award } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
+
+interface Curso {
+  id: string;
+  titulo: string;
+  descricao: string;
+  duracao: string;
+  numero_alunos: string;
+  certificado: string;
+  imagem_url: string;
+  preco: number;
+  preco_parcelado: string;
+  nivel: 'basico' | 'avancado' | 'holistico';
+  created_at: string;
+  updated_at: string;
+}
 
 export const Courses = () => {
   const navigate = useNavigate();
