@@ -20,7 +20,7 @@ interface Curso {
   imagem_url: string;
   preco: number;
   preco_parcelado: string;
-  nivel: 'basico' | 'avancado' | 'holistico';
+  nivel: string; // Can be 'basico' | 'avancado' | 'holistico' or any other value
   created_at: string;
   updated_at: string;
 }
@@ -41,7 +41,7 @@ export const CourseManagement = () => {
     imagem_url: '',
     preco: 0,
     preco_parcelado: '',
-    nivel: 'basico' as 'basico' | 'avancado' | 'holistico'
+    nivel: 'basico'
   });
 
   useEffect(() => {

@@ -15,7 +15,7 @@ interface Curso {
   imagem_url: string;
   preco: number;
   preco_parcelado: string;
-  nivel: 'basico' | 'avancado' | 'holistico';
+  nivel: string; // Can be 'basico' | 'avancado' | 'holistico' or any other value
   created_at: string;
   updated_at: string;
 }
